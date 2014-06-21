@@ -8,7 +8,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="jp.goka.favos.ui.PhotoListActivity">
+    tools:context="jp.goka.favos.ui.MediaListActivity">
 
     <!--
     This layout is a two-pane layout for the Photos
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/photo_list"
-        android:name="jp.goka.favos.ui.PhotoListFragment"
+        android:name="jp.goka.favos.ui.MediaListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

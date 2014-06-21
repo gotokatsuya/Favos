@@ -1,12 +1,15 @@
 package jp.goka.favos.model;
 
+import com.activeandroid.annotation.Table;
+
 /**
  * Created by katsuyagoto on 2014/06/19.
  */
-public class From extends Base {
+@Table(name = "FromUsers")
+public class FromUser extends Base {
 	private String username;
-	private String profilePicture;
-	private String fullName;
+	private String profile_picture;
+	private String full_name;
 
 	public String getUsername() {
 		return username;
@@ -17,18 +20,18 @@ public class From extends Base {
 	}
 
 	public String getProfilePicture() {
-		return profilePicture;
+		return profile_picture;
 	}
 
 	public void setProfilePicture(String profilePicture) {
-		this.profilePicture = profilePicture;
+		this.profile_picture = profilePicture;
 	}
 
 	public String getFullName() {
-		return fullName;
+		return full_name;
 	}
 
 	public void setFullName(String fullName) {
-		this.fullName = fullName;
+		this.full_name = fullName;
 	}
 }

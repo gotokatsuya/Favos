@@ -31,6 +31,9 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:18.0.0'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.android.support:support-v4:19.1.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':modules:volley')
+    //compile files('libs/activendroid.jar')
 }

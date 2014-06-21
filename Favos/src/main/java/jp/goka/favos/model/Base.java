@@ -1,25 +1,36 @@
 package jp.goka.favos.model;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+
 /**
  * Created by katsuyagoto on 2014/06/19.
  */
-public class Base {
-	private long id;
-	private long createdTime;
+public class Base extends Model {
 
-	public long getId() {
+	public Base() {
+		super();
+	}
+
+	@Column(name = "Identity")
+	private String id;
+
+	@Column(name = "CreatedTime")
+	private long created_time;
+
+	public String getIdentity() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setIdentity(String id) {
 		this.id = id;
 	}
 
 	public long getCreatedTime() {
-		return createdTime;
+		return created_time;
 	}
 
 	public void setCreatedTime(long createdTime) {
-		this.createdTime = createdTime;
+		this.created_time = createdTime;
 	}
 }

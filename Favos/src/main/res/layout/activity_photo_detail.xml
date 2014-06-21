@@ -3,5 +3,5 @@
     android:id="@+id/photo_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="jp.goka.favos.ui.PhotoDetailActivity"
+    tools:context="jp.goka.favos.ui.MediaDetailActivity"
     tools:ignore="MergeRootFrame" />

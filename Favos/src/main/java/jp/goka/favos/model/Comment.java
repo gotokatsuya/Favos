@@ -1,11 +1,14 @@
 package jp.goka.favos.model;
 
+import com.activeandroid.annotation.Table;
+
 /**
  * Created by katsuyagoto on 2014/06/19.
  */
+@Table(name = "Comments")
 public class Comment extends Base {
 	private String text;
-	private From from;
+	private FromUser from;
 
 	public String getText() {
 		return text;
@@ -15,11 +18,11 @@ public class Comment extends Base {
 		this.text = text;
 	}
 
-	public From getFrom() {
+	public FromUser getFrom() {
 		return from;
 	}
 
-	public void setFrom(From from) {
+	public void setFrom(FromUser from) {
 		this.from = from;
 	}
 }

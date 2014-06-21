@@ -1,20 +1,25 @@
 package jp.goka.favos.model;
 
+import com.activeandroid.annotation.Table;
+import com.google.gson.Gson;
+import org.json.JSONObject;
+
 /**
  * Created by katsuyagoto on 2014/06/19.
  */
+@Table(name = "Images")
 public class Image extends Base {
 
-	private LowResolution lowResolution;
+	private LowResolution low_resolution;
 	private Thumbnail thumbnail;
-	private StandardResolution standardResolution;
+	private StandardResolution standard_resolution;
 
 	public LowResolution getLowResolution() {
-		return lowResolution;
+		return low_resolution;
 	}
 
 	public void setLowResolution(LowResolution lowResolution) {
-		this.lowResolution = lowResolution;
+		this.low_resolution = lowResolution;
 	}
 
 	public Thumbnail getThumbnail() {
@@ -26,10 +31,15 @@ public class Image extends Base {
 	}
 
 	public StandardResolution getStandardResolution() {
-		return standardResolution;
+		return standard_resolution;
 	}
 
 	public void setStandardResolution(StandardResolution standardResolution) {
-		this.standardResolution = standardResolution;
+		this.standard_resolution = standardResolution;
+	}
+
+	public static Image parse(JSONObject jsonObject){
+		Image image = new Gson().fromJson(jsonObject.toString(), Image.class);
+		return image;
 	}
 }

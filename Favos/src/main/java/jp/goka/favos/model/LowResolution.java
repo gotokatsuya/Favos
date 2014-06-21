@@ -1,8 +1,12 @@
 package jp.goka.favos.model;
 
+import com.activeandroid.annotation.Table;
+
 /**
  * Created by katsuyagoto on 2014/06/19.
  */
+
+@Table(name = "LowResolutions")
 public class LowResolution extends Base {
 	private String url;
 	private int width;

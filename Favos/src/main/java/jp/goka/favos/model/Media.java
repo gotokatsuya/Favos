@@ -1,30 +1,46 @@
 package jp.goka.favos.model;
 
-import java.util.List;
-import java.util.Locale;
+import com.activeandroid.annotation.Table;
+import com.google.gson.Gson;
+import jp.goka.favos.parser.MediaParser;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.*;
 
 /**
  * Created by katsuyagoto on 2014/06/19.
  */
+
+@Table(name = "Medias")
 public class Media extends Base {
+
+	public static Map<String, Media> ITEM_MAP = new HashMap<String, Media>();
+
 	enum Type{
 		IMAGE, VIDEO
 	}
 
 	private String attribution;
 	private List<String> tags;
-	private Type type;
+	private String type;
 	private Location location;
 	private Comments comments;
 	private String filter;
 	private String link;
 	private Likes likes;
-	private List<Image> images;
-	private List<Video> videos;
-	private List<UsersInPhoto> usersInPhoto;
+	private Image images;
+	private Video videos;
+	private List<UsersInPhoto> users_in_photo;
 	private Caption caption;
-	private boolean userHasLiked;
+	private boolean user_has_liked;
 	private User user;
+
+
+	public static Media parse(JSONObject jsonObject){
+		Media media = MediaParser.parse(jsonObject);
+		return media;
+	}
 
 
 	public String getAttribution() {
@@ -44,10 +60,15 @@ public class Media extends Base {
 	}
 
 	public Type getType() {
-		return type;
+		if(type.equals("image")){
+			return Type.IMAGE;
+		}else if(type.equals("video")){
+			return Type.VIDEO;
+		}
+		return Type.IMAGE;
 	}
 
-	public void setType(Type type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -91,28 +112,28 @@ public class Media extends Base {
 		this.likes = likes;
 	}
 
-	public List<Image> getImages() {
+	public Image getImages() {
 		return images;
 	}
 
-	public void setImages(List<Image> images) {
+	public void setImages(Image images) {
 		this.images = images;
 	}
 
-	public List<Video> getVideos() {
+	public Video getVideos() {
 		return videos;
 	}
 
-	public void setVideos(List<Video> videos) {
+	public void setVideos(Video videos) {
 		this.videos = videos;
 	}
 
 	public List<UsersInPhoto> getUsersInPhoto() {
-		return usersInPhoto;
+		return users_in_photo;
 	}
 
 	public void setUsersInPhoto(List<UsersInPhoto> usersInPhoto) {
-		this.usersInPhoto = usersInPhoto;
+		this.users_in_photo = usersInPhoto;
 	}
 
 	public Caption getCaption() {
@@ -124,11 +145,11 @@ public class Media extends Base {
 	}
 
 	public boolean isUserHasLiked() {
-		return userHasLiked;
+		return user_has_liked;
 	}
 
 	public void setUserHasLiked(boolean userHasLiked) {
-		this.userHasLiked = userHasLiked;
+		this.user_has_liked = userHasLiked;
 	}
 
 	public User getUser() {

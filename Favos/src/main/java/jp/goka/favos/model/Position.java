@@ -1,8 +1,11 @@
 package jp.goka.favos.model;
 
+import com.activeandroid.annotation.Table;
+
 /**
  * Created by katsuyagoto on 2014/06/19.
  */
+@Table(name = "Positions")
 public class Position extends Base {
 	private double x;
 	private double y;
