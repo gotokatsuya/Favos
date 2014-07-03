@@ -6,6 +6,6 @@ package jp.goka.favos;
 public class Config {
 
 	public static boolean DEBUG_MODE = true;
-	public static String VERSION = "1.0.0";
+	public static String VERSION = "1.0.1";
 
 }
