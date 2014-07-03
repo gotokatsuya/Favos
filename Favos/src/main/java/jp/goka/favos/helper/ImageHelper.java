@@ -70,10 +70,11 @@ public class ImageHelper {
 	}
 
 	//Delete from Gallery
-	public static boolean delete(ContentResolver cr, String path) {
+	public static boolean delete(Context context, String path) {
 		if(sdCardWriteReady()) {
 			Cursor cursor = null;
 			try{
+				ContentResolver cr = context.getContentResolver();
 				cursor = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
 						new String[] {MediaStore.Images.Media._ID},
 						MediaStore.Images.Media.DATA + " = ?",
@@ -86,6 +87,7 @@ public class ImageHelper {
 							MediaStore.Images.Media.EXTERNAL_CONTENT_URI.buildUpon(),
 							cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID))).build();
 					cr.delete(uri, null, null);
+					ToastHelper.shortMessage(context, "Delete");
 					return true;
 				}
 			}finally {

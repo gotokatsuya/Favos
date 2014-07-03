@@ -56,7 +56,7 @@ public class DetailSavedImageActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				int position = viewPager.getCurrentItem();
-				ImageHelper.delete(getContentResolver(), paths.get(position));
+				ImageHelper.delete(DetailSavedImageActivity.this, paths.get(position));
 				setResult(Activity.RESULT_OK);
 				finish();
 			}
