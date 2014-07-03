@@ -6,8 +6,12 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.*;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import jp.goka.favos.application.Favos;
 
 public class BaseFragment extends Fragment {
 
@@ -34,6 +38,22 @@ public class BaseFragment extends Fragment {
 			return getActivity().getActionBar();
 		}
 	}
+
+	public void sendScreenName(String screenName){
+		Tracker t =  ((Favos)getFragmentActivity().getApplication()).getTracker(Favos.TrackerName.APP_TRACKER);
+		t.setScreenName(screenName);
+		t.send(new HitBuilders.AppViewBuilder().build());
+	}
+
+	public void sendAction(String category, String action, String label){
+		Tracker t =  ((Favos)getFragmentActivity().getApplication()).getTracker(Favos.TrackerName.APP_TRACKER);
+		t.send(new HitBuilders.EventBuilder()
+				.setCategory(category)
+				.setAction(action)
+				.setLabel(label)
+				.build());
+	}
+
 
 	protected void setTitle(int title){
 		ActionBar actionBar = getActionBar();
@@ -167,4 +187,8 @@ public class BaseFragment extends Fragment {
 	protected ScrollView getSv(View view, int id) {
 		return (ScrollView) view.findViewById(id);
 	}
+	protected SwipeRefreshLayout getSrl(View view, int id) {
+		return (SwipeRefreshLayout) view.findViewById(id);
+	}
+
 }

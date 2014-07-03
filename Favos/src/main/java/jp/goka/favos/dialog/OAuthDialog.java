@@ -14,6 +14,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import jp.goka.favos.Config;
+import jp.goka.favos.Instagram;
 import jp.goka.favos.R;
 
 /**
@@ -80,7 +81,7 @@ public class OAuthDialog extends BaseDialogFragment {
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-			if (url.startsWith(Config.CALLBACK_URL)) {
+			if (url.startsWith(Instagram.CALLBACK_URL)) {
 				String urls[] = url.split("=");
 				if(mListener != null) {
 					mListener.onComplete(urls[1]);

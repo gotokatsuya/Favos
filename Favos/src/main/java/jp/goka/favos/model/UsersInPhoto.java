@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by katsuyagoto on 2014/06/19.
  */
-@Table(name = "UsersInPhotos")
 public class UsersInPhoto extends Base {
 	private Position position;
 	private User user;

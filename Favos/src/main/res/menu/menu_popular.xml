@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/menu_item_search"
+            android:icon="@drawable/search_icon"
+            android:actionViewClass="android.widget.SearchView"
+            android:showAsAction="ifRoom|collapseActionView"
+            android:title="Search"
+            >
+    </item>
+    <item
+            android:id="@+id/menu_item_popular"
+            android:showAsAction="always"
+            android:actionLayout="@layout/bar_item_action_text"
+            android:title="Popular"
+            >
+    </item>
+</menu>

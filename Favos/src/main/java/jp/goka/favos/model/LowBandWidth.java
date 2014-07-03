@@ -6,7 +6,6 @@ import com.activeandroid.annotation.Table;
  * Created by katsuyagoto on 2014/06/19.
  */
 
-@Table(name = "LowBandWidths")
 public class LowBandWidth extends Base {
 	private String url;
 	private int width;

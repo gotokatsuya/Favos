@@ -10,7 +10,6 @@ import java.util.List;
  * Created by katsuyagoto on 2014/06/19.
  */
 
-@Table(name = "Likeses")
 public class Likes extends Base {
 
 	private int count;

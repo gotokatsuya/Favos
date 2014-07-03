@@ -22,31 +22,27 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import jp.goka.favos.Config;
+import jp.goka.favos.application.Favos;
 
 public class BaseActivity extends FragmentActivity {
 
-    @Override
-    public void onStart() {
-        super.onStart();
-		if(!Config.DEBUG_MODE) {
-		//	EasyTracker.getInstance(this).activityStart(this);
-		}
-    }
+	public void sendScreenName(String screenName){
+		Tracker t =  ((Favos)getApplication()).getTracker(Favos.TrackerName.APP_TRACKER);
+		t.setScreenName(screenName);
+		t.send(new HitBuilders.AppViewBuilder().build());
+	}
 
 
-    @Override
-    public void onStop() {
-        super.onStop();
-		if(!Config.DEBUG_MODE) {
-		//	EasyTracker.getInstance(this).activityStop(this);
-		}
-    }
-
-	@Override
-	public void onResume(){
-		super.onResume();
-		//com.facebook.AppEventsLogger.activateApp(this, Config.FB_APP_ID);
+	public void sendAction(String category, String action, String label){
+		Tracker t =  ((Favos)getApplication()).getTracker(Favos.TrackerName.APP_TRACKER);
+		t.send(new HitBuilders.EventBuilder()
+				.setCategory(category)
+				.setAction(action)
+				.setLabel(label)
+				.build());
 	}
 
 	@Override
@@ -56,9 +52,9 @@ public class BaseActivity extends FragmentActivity {
 			return;
 		}
 
+		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setDisplayShowCustomEnabled(false);
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setDisplayShowHomeEnabled(false);
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setTitle(title);
 	}
@@ -69,11 +65,11 @@ public class BaseActivity extends FragmentActivity {
 			return;
 		}
 
-		actionBar.setDisplayShowCustomEnabled(false);
-		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayHomeAsUpEnabled(false);
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setTitle(title);
+		actionBar.setDisplayShowCustomEnabled(false);
 	}
 
 

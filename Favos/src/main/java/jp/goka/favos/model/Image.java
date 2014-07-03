@@ -7,7 +7,6 @@ import org.json.JSONObject;
 /**
  * Created by katsuyagoto on 2014/06/19.
  */
-@Table(name = "Images")
 public class Image extends Base {
 
 	private LowResolution low_resolution;

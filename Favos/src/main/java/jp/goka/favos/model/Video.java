@@ -7,7 +7,6 @@ import org.json.JSONObject;
 /**
  * Created by katsuyagoto on 2014/06/19.
  */
-@Table(name = "Videos")
 public class Video extends Base {
 
 	private LowBandWidth low_bandWidth;

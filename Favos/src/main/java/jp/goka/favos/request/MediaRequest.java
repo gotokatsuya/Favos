@@ -4,11 +4,13 @@ import com.android.volley.Response;
 import jp.goka.favos.helper.ThreadHelper;
 import jp.goka.favos.model.InstagramError;
 import jp.goka.favos.model.Media;
+import jp.goka.favos.model.Pagination;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,7 +19,7 @@ import java.util.List;
 public class MediaRequest extends BaseRequest {
 
 	enum MediaMethod{
-		GET("media/id"),
+		GET("media/media-id"),
 		SEARCH("media/search"),
 		POPULAR("media/popular");
 
@@ -38,8 +40,8 @@ public class MediaRequest extends BaseRequest {
 						   final Response.Listener<List<Media>> successListener,
 						   final Response.Listener<InstagramError> errorListener){
 		String method = MediaMethod.GET.method;
-		method.replace("id", String.valueOf(mediaId));
-		getInstance().get(method, new Response.Listener<JSONObject>() {
+		method = method.replace("media-id", String.valueOf(mediaId));
+		getInstance().get(method, null, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				success(response, successListener);
@@ -48,18 +50,21 @@ public class MediaRequest extends BaseRequest {
 	}
 
 	public static void search(final Response.Listener<List<Media>> successListener,
+							  final Response.Listener<Pagination> paginationListener,
 							  final Response.Listener<InstagramError> errorListener){
-		getInstance().get(MediaMethod.SEARCH.method, new Response.Listener<JSONObject>() {
+		getInstance().get(MediaMethod.SEARCH.method, null, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				success(response, successListener);
+				pagination(response, paginationListener);
 			}
 		}, errorListener);
 	}
 
 	public static void popular(final Response.Listener<List<Media>> successListener,
 							   final Response.Listener<InstagramError> errorListener){
-		getInstance().get(MediaMethod.POPULAR.method, new Response.Listener<JSONObject>() {
+
+		getInstance().get(MediaMethod.POPULAR.method, null, new Response.Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				success(response, successListener);
@@ -67,7 +72,8 @@ public class MediaRequest extends BaseRequest {
 		},errorListener);
 	}
 
-	private static void success(final JSONObject response, final Response.Listener<List<Media>> successListener){
+	private static void success(final JSONObject response,
+								final Response.Listener<List<Media>> successListener){
 		ThreadHelper.runInBackground(new Runnable() {
 			@Override
 			public void run() {
@@ -78,7 +84,6 @@ public class MediaRequest extends BaseRequest {
 						Media media = Media.parse(jsonArray.getJSONObject(i));
 						if(media != null) {
 							medias.add(media);
-							Media.ITEM_MAP.put(media.getIdentity(), media);
 						}
 					}
 					ThreadHelper.runOnUi(new Runnable() {
@@ -93,5 +98,4 @@ public class MediaRequest extends BaseRequest {
 			}
 		});
 	}
-
 }

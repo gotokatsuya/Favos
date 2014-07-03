@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="top_page_texts">
+        <item>Favos</item>
+        <item>Use Instagram</item>
+        <item>Save immediately</item>
+        <item>Create Album</item>
+    </string-array>
+</resources>

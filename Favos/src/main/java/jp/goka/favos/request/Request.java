@@ -1,5 +1,6 @@
 package jp.goka.favos.request;
 
+import android.text.TextUtils;
 import com.android.volley.*;
 import com.android.volley.toolbox.HttpHeaderParser;
 import jp.goka.favos.helper.ToastHelper;
@@ -29,7 +30,9 @@ public class Request extends com.android.volley.Request<JSONObject> {
 		super(method, url, new Response.ErrorListener() {
 			@Override
 			public void onErrorResponse(VolleyError error) {
-				Logger.D("Request volley error", error.getMessage());
+				if(error != null && !TextUtils.isEmpty(error.getMessage())) {
+					Logger.D("Request volley error", error.getMessage());
+				}
 			}
 		});
 		mListener = listener;

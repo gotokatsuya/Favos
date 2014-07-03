@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/empty_album"
+        >
+
+    <LinearLayout
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="画像をロングタップして\n保存してみよう！"
+                android:textColor="@color/blue1"
+                android:textSize="18sp"
+                android:gravity="center"
+                />
+
+        <TextView
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="※画像はローカルにも保存されます。"
+                android:textColor="@color/blue0"
+                android:gravity="center"
+                />
+
+    </LinearLayout>
+
+</RelativeLayout>

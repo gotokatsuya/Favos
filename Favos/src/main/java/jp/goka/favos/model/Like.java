@@ -1,11 +1,8 @@
 package jp.goka.favos.model;
 
-import com.activeandroid.annotation.Table;
-
 /**
  * Created by katsuyagoto on 2014/06/19.
  */
-@Table(name = "Likes")
 public class Like extends Base {
 	private String username;
 	private String profile_picture;

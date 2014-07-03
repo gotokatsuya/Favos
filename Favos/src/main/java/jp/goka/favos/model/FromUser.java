@@ -5,7 +5,6 @@ import com.activeandroid.annotation.Table;
 /**
  * Created by katsuyagoto on 2014/06/19.
  */
-@Table(name = "FromUsers")
 public class FromUser extends Base {
 	private String username;
 	private String profile_picture;

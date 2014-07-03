@@ -8,7 +8,6 @@ import org.json.JSONObject;
  * Created by katsuyagoto on 2014/06/19.
  */
 
-@Table(name = "Locations")
 public class Location extends Base {
 
 	private double latitude;

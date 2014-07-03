@@ -1,8 +1,40 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <!-- Application theme. -->
+    <style name="Favos.Theme" parent="android:Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/Favos.Theme.ActionBar</item>
+        <item name="android:actionBarItemBackground">@drawable/selector_blue</item>
     </style>
+
+    <style name="Favos.Theme.ActionBar" parent="android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/blue0</item>
+        <item name="android:titleTextStyle">@style/Favos.Theme.ActionBar_TitleText</item>
+        <item name="android:subtitleTextStyle">@style/Favos.Theme.ActionBar_SubTitleText</item>
+        <item name="android:displayOptions"></item>
+    </style>
+
+    <style name="Favos.Theme.ActionBar_TitleText" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white0</item>
+    </style>
+
+    <style name="Favos.Theme.ActionBar_SubTitleText" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle">
+        <item name="android:textColor">@color/white0</item>
+    </style>
+
+
+    <style name="overlay" parent="Favos.Theme">
+        <item name="android:actionBarStyle">@style/overlay.ActionBar</item>
+        <item name="android:actionBarItemBackground">@null</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="overlay.ActionBar" parent="android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:titleTextStyle">@style/Favos.Theme.ActionBar_TitleText</item>
+        <item name="android:subtitleTextStyle">@style/Favos.Theme.ActionBar_SubTitleText</item>
+    </style>
+
+
 
 </resources>

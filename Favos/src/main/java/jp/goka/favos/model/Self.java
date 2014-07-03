@@ -18,6 +18,7 @@ public class Self extends Base {
 	@Column(name = "AccessToken")
 	private String access_token;
 
+	@Column(name = "User")
 	private User user;
 
 	public String getAccessToken() {
@@ -31,7 +32,6 @@ public class Self extends Base {
 	public boolean hasAccessToken(){
 		if(access_token == null || access_token.isEmpty()){
 			return false;
-
 		}else {
 			return true;
 		}
@@ -45,24 +45,29 @@ public class Self extends Base {
 		this.user = user;
 	}
 
-	public static boolean sameAccessToken(Self s1, Self s2){
-		if(!((s1.getAccessToken()).equals((s2.getAccessToken())))){
-			return false;
-		}else {
-			return true;
-		}
-	}
-
 	public static Self parse(JSONObject jsonObject){
 		Self self = new Gson().fromJson(jsonObject.toString(), Self.class);
+		User user = self.getUser();
+		if(user != null) {
+			Count count = user.getCounts();
+			if(count != null){
+				count.save();
+				user.setCounts(count);
+			}
+
+			user.save();
+			self.setUser(user);
+		}
+
+
 		self.setCreatedTime((new Date().getTime()));
-		Self findSelf = find();
-		if(findSelf == null){
+
+		Self find = Self.find();
+		if(find == null){
 			self.save();
 		}else {
-			if(!sameAccessToken(findSelf, self)){
-				self.save();
-			}
+			find = self;
+			find.save();
 		}
 		return self;
 	}

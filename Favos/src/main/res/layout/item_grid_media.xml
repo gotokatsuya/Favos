@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="6dp"
+            android:background="@drawable/bg_card">
+
+        <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <jp.goka.favos.view.SquaredImageView
+                    android:id="@+id/item_grid_image"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    app:is_width="false"
+                    app:is_height="true"
+                    app:length="30"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    />
+
+            <jp.goka.favos.view.SquaredImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shade_gradient"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    app:is_width="false"
+                    app:is_height="true"
+                    app:length="30"
+                    />
+        </RelativeLayout>
+
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="36dp">
+
+            <jp.goka.favos.view.RoundedImageView
+                    android:id="@+id/item_grid_user_image"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:scaleType="centerCrop"
+                    app:round_background="false"
+                    app:is_oval="false"
+                    app:corner_radius="2dp"
+                    android:paddingTop="4dp"
+                    android:paddingLeft="4dp"
+                    />
+
+            <TextView
+                    android:layout_weight="1"
+                    android:gravity="left|center"
+                    android:id="@+id/item_grid_username"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="@color/blue2"
+                    android:textSize="16sp"
+                    android:singleLine="true"
+                    />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

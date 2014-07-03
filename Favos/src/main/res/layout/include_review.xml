@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/review_layout"
+              android:descendantFocusability="blocksDescendants">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_card">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="レビューしてアルバムに保存\n出来る枚数を増やそう！"
+                android:gravity="center"
+                android:textColor="@color/blue1"
+                />
+
+        <TextView
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="※無制限に保存出来るようになります。"
+                android:textColor="@color/blue0"
+                />
+    </LinearLayout>
+
+    <ImageView
+            android:id="@+id/close_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:src="@drawable/cancel_black"
+            />
+</RelativeLayout>

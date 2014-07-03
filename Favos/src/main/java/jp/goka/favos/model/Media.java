@@ -12,12 +12,9 @@ import java.util.*;
  * Created by katsuyagoto on 2014/06/19.
  */
 
-@Table(name = "Medias")
 public class Media extends Base {
 
-	public static Map<String, Media> ITEM_MAP = new HashMap<String, Media>();
-
-	enum Type{
+	public enum Type{
 		IMAGE, VIDEO
 	}
 

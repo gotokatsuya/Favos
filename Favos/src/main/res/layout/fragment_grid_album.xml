@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/swipe_refresh_layout"
+        >
+
+    <GridView
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/gridView"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:scrollbars="none"
+            android:verticalSpacing="2dp"
+            android:horizontalSpacing="2dp"
+            android:gravity="center"
+            tools:listitem="@layout/item_grid_image"
+            android:listSelector="@android:color/transparent"
+            />
+</android.support.v4.widget.SwipeRefreshLayout>

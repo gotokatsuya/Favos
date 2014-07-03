@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:orientation="vertical"
+        android:background="@drawable/shape_top_border_white"
+        android:id="@+id/include_main_tab">
+
+    <RadioGroup
+            android:id="@+id/include_main_tab_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            >
+
+        <RadioButton
+                android:id="@+id/include_main_tab_popular_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:text="Popular"
+                android:textSize="16sp"
+                android:textColor="@color/selector_tab_text_color"
+                android:checked="true"
+                android:background="@android:color/transparent"
+                >
+        </RadioButton>
+
+        <RadioButton
+                android:id="@+id/include_main_tab_album_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:text="Album"
+                android:textSize="16sp"
+                android:textColor="@color/selector_tab_text_color"
+                android:background="@android:color/transparent"
+                >
+        </RadioButton>
+
+        <RadioButton
+                android:id="@+id/include_main_tab_home_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:button="@null"
+                android:text="Home"
+                android:textSize="16sp"
+                android:textColor="@color/selector_tab_text_color"
+                android:background="@android:color/transparent"
+                >
+        </RadioButton>
+        <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
+            <jp.goka.favos.view.RoundedImageView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/include_main_tab_profile_image"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    app:round_background="true"
+                    app:is_oval="true"
+                    />
+         </RelativeLayout>
+
+    </RadioGroup>
+
+</LinearLayout>

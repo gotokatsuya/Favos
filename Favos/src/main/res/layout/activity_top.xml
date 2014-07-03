@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/blue0">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/top_login_btn">
+
+        <ImageView
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo"/>
+
+    </RelativeLayout>
+
+    <Button
+            android:id="@+id/top_login_btn"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="24dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/selector_blue_btn"
+            android:text="Log In Instagram"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            />
+
+</RelativeLayout>

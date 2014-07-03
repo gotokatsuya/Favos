@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/swipe_refresh_layout"
+        >
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                >
+
+            <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                <jp.goka.favos.view.RoundedImageView
+                        android:id="@+id/profile_self_image"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:scaleType="centerCrop"
+                        app:round_background="true"
+                        app:is_oval="true"
+                        />
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <TextView
+                            android:id="@+id/profile_self_nickname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Goto Katsuya"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            />
+
+                    <TextView
+                            android:id="@+id/profile_self_full_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="gotokatsuya"
+                            android:textSize="14sp"
+                            android:gravity="center|top"
+                            />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_card">
+
+                <LinearLayout
+                        android:paddingTop="4dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="4dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+
+                    <TextView
+                            android:id="@+id/profile_self_posts"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="0"
+                            android:textSize="18sp"
+                            android:gravity="center"
+                            />
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="posts"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            />
+
+                </LinearLayout>
+
+
+                <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/black"/>
+
+
+                <LinearLayout
+                        android:paddingTop="4dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="4dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+
+                    <TextView
+                            android:id="@+id/profile_self_followers"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="0"
+                            android:textSize="18sp"
+                            android:gravity="center"
+                            />
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="followers"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            />
+                </LinearLayout>
+
+                <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/black"/>
+
+                <LinearLayout
+                        android:paddingTop="4dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:paddingBottom="4dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+
+                    <TextView
+                            android:id="@+id/profile_self_following"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="0"
+                            android:textSize="18sp"
+                            android:gravity="center"
+                            />
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="following"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            />
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_card">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="MyLiked"
+                        android:textSize="16sp"
+                        android:gravity="center|left"
+                        />
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@android:color/black"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="4dp"
+                        />
+
+                <jp.goka.favos.view.HorizontalListView
+                        android:id="@+id/profile_self_liked_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        />
+            </LinearLayout>
+
+            <include layout="@layout/include_review"/>
+
+
+            <View android:layout_width="match_parent"
+                  android:layout_height="80dp"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</android.support.v4.widget.SwipeRefreshLayout>
