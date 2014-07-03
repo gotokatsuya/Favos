@@ -1,7 +1,6 @@
 package jp.goka.favos.application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import jp.goka.favos.Config;
 import jp.goka.favos.R;

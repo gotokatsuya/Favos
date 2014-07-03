@@ -1,11 +1,15 @@
 package jp.goka.favos.helper;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import jp.goka.favos.R;
 import jp.goka.favos.model.Count;
 
@@ -63,5 +67,32 @@ public class ImageHelper {
 	private static boolean sdCardWriteReady() {
 		String state = Environment.getExternalStorageState();
 		return (Environment.MEDIA_MOUNTED.equals(state));
+	}
+
+	//Delete from Gallery
+	public static boolean delete(ContentResolver cr, String path) {
+		if(sdCardWriteReady()) {
+			Cursor cursor = null;
+			try{
+				cursor = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+						new String[] {MediaStore.Images.Media._ID},
+						MediaStore.Images.Media.DATA + " = ?",
+						new String[]{path},
+						null);
+
+				if(cursor.getCount() != 0) {
+					cursor.moveToFirst();
+					Uri uri = ContentUris.appendId(
+							MediaStore.Images.Media.EXTERNAL_CONTENT_URI.buildUpon(),
+							cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID))).build();
+					cr.delete(uri, null, null);
+					return true;
+				}
+			}finally {
+				if(cursor != null)
+					cursor.close();
+			}
+		}
+		return false;
 	}
 }

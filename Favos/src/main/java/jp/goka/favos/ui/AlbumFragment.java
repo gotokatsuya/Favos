@@ -1,5 +1,6 @@
 package jp.goka.favos.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,6 +19,8 @@ import java.util.List;
 
 
 public class AlbumFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+
+	private static final int REQUEST_DETAIL = 1;
 
 	private SavedImageAdapter savedImageAdapter;
 	private SwipeRefreshLayout swipeRefreshLayout;
@@ -59,7 +62,7 @@ public class AlbumFragment extends BaseFragment implements SwipeRefreshLayout.On
 				Intent intent = new Intent(getFragmentActivity(), DetailSavedImageActivity.class);
 				intent.putExtra(DetailSavedImageActivity.KEY_POSITION, position);
 				intent.putStringArrayListExtra(DetailSavedImageActivity.KEY_PATH, savedImageAdapter.getPaths());
-				startActivity(intent);
+				startActivityForResult(intent, REQUEST_DETAIL);
 			}
 		});
 		fetchSavedImage();
@@ -109,5 +112,17 @@ public class AlbumFragment extends BaseFragment implements SwipeRefreshLayout.On
 				break;
 		}
 		return false;
+	}
+
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data){
+		switch (requestCode){
+			case REQUEST_DETAIL:
+				if(resultCode == Activity.RESULT_OK) {
+					fetchSavedImage();
+				}
+				break;
+		}
 	}
 }

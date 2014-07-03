@@ -152,7 +152,6 @@ public class PopularFragment extends BaseFragment implements SwipeRefreshLayout.
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.menu_popular, menu);
-
 		final MenuItem searchItem = menu.findItem(R.id.menu_item_search);
 		final SearchView searchView = (SearchView)searchItem.getActionView();
 		searchView.setIconifiedByDefault(false);
@@ -192,23 +191,23 @@ public class PopularFragment extends BaseFragment implements SwipeRefreshLayout.
 
 		final MenuItem popularItem = menu.findItem(R.id.menu_item_popular);
 		View pText = popularItem.getActionView();
-		pText.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				sendAction(PopularFragment.class.getSimpleName(), "onClick", "Popular");
+		if(pText != null) {
+			pText.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					sendAction(PopularFragment.class.getSimpleName(), "onClick", "Popular");
 
-				SharedPreferencesHelper.save(getFragmentActivity(), KEY_QUERY, "");
-				if (searchItem != null) {
-					searchItem.collapseActionView();
+					SharedPreferencesHelper.save(getFragmentActivity(), KEY_QUERY, "");
+					if (searchItem != null) {
+						searchItem.collapseActionView();
+					}
+					if (searchView != null) {
+						searchView.setQuery("", false);
+					}
+					fetchPopular();
 				}
-				if (searchView != null) {
-					searchView.setQuery("", false);
-				}
-				fetchPopular();
-			}
-		});
-
-
+			});
+		}
 
 		super.onCreateOptionsMenu(menu, inflater);
 	}

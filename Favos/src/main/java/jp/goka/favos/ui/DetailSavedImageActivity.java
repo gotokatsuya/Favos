@@ -1,5 +1,6 @@
 package jp.goka.favos.ui;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -49,8 +50,17 @@ public class DetailSavedImageActivity extends BaseActivity {
 		});
 		setLabel();
 
-		ImageButton save = (ImageButton) findViewById(R.id.activity_image_preview_button_save);
-		save.setVisibility(View.GONE);
+		ImageButton delete = (ImageButton) findViewById(R.id.activity_image_preview_button_save);
+		delete.setImageResource(R.drawable.trash);
+		delete.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int position = viewPager.getCurrentItem();
+				ImageHelper.delete(getContentResolver(), paths.get(position));
+				setResult(Activity.RESULT_OK);
+				finish();
+			}
+		});
 
 		ImageButton cancel = (ImageButton) findViewById(R.id.activity_image_preview_button_cancel);
 		cancel.setOnClickListener(new View.OnClickListener() {
