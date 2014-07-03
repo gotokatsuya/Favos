@@ -161,7 +161,6 @@ public class PopularFragment extends BaseFragment implements SwipeRefreshLayout.
 		searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
 			@Override
 			public boolean onMenuItemActionExpand(MenuItem item) {
-				getActionBar().setIcon(android.R.color.transparent);
 				return true;
 			}
 

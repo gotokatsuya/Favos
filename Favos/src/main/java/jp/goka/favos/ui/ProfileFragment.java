@@ -17,6 +17,7 @@ import jp.goka.favos.adapter.MediaAdapter;
 import jp.goka.favos.adapter.MediaImageAdapter;
 import jp.goka.favos.helper.ImageHelper;
 import jp.goka.favos.helper.SharedPreferencesHelper;
+import jp.goka.favos.helper.TextViewHelper;
 import jp.goka.favos.helper.ToastHelper;
 import jp.goka.favos.listener.AdapterListener;
 import jp.goka.favos.model.*;
@@ -129,6 +130,8 @@ public class ProfileFragment extends BaseFragment implements SwipeRefreshLayout.
 				SharedPreferencesHelper.save(getFragmentActivity(), KEY_REVIEW, true);
 			}
 		});
+		TextView reviewText = getTv(view, R.id.review_text);
+		TextViewHelper.makeUnderLine(reviewText);
 
 		refreshView(Self.find());
 		fetchSelf();
