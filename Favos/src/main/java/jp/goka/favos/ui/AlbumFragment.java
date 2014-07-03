@@ -106,9 +106,11 @@ public class AlbumFragment extends BaseFragment implements SwipeRefreshLayout.On
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()){
 			case R.id.menu_item_slideshow:
-				Intent intent = new Intent(getFragmentActivity(), SlideShowActivity.class);
-				intent.putExtra(SlideShowActivity.KEY_PATHS, savedImageAdapter.getPaths());
-				startActivity(intent);
+				if(!savedImageAdapter.isEmpty()) {
+					Intent intent = new Intent(getFragmentActivity(), SlideShowActivity.class);
+					intent.putExtra(SlideShowActivity.KEY_PATHS, savedImageAdapter.getPaths());
+					startActivity(intent);
+				}
 				break;
 		}
 		return false;
