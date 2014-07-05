@@ -48,7 +48,7 @@ public class ProfileFragment extends BaseFragment implements SwipeRefreshLayout.
         super.onCreate(savedInstanceState);
 		sendScreenName(ProfileFragment.class.getSimpleName());
 		setHasOptionsMenu(true);
-		setTitleUnEnableHome("Profile");
+		//setTitleUnEnableHome("Profile");
 		mediaMyLikedAdapter = new MediaImageAdapter(getFragmentActivity(), new AdapterListener.OnLoadListener() {
 			@Override
 			public void load() {

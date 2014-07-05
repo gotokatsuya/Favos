@@ -41,9 +41,11 @@ public class MainActivity extends BaseActivity {
 
 		final RadioGroup radioGroup = (RadioGroup) findViewById(R.id.include_main_tab_radio_group);
 		radioGroup.check(R.id.include_main_tab_popular_button);
+		setTitleUnEnableHome(getTitleFromPosition(0));
+
 
 		final ParentViewPager viewPager = (ParentViewPager)findViewById(R.id.main_viewpager);
-		viewPager.setOffscreenPageLimit(4);
+		///viewPager.setOffscreenPageLimit(4);
 		FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
 			@Override
 			public Fragment getItem(int position) {
@@ -72,31 +74,6 @@ public class MainActivity extends BaseActivity {
 		};
 
 		viewPager.setAdapter(fragmentPagerAdapter);
-		viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-			@Override
-			public void onPageSelected(int position) {
-				setTitleUnEnableHome(getTitleFromPosition(position));
-				switch (position){
-					case 0:
-						sendAction(MainActivity.class.getSimpleName(), "onPageSelected", "Popular");
-						radioGroup.check(R.id.include_main_tab_popular_button);
-						break;
-					case 1:
-						sendAction(MainActivity.class.getSimpleName(), "onPageSelected", "Album");
-						radioGroup.check(R.id.include_main_tab_album_button);
-						break;
-					case 2:
-						sendAction(MainActivity.class.getSimpleName(), "onPageSelected", "Home");
-						radioGroup.check(R.id.include_main_tab_home_button);
-						break;
-					case 3:
-						sendAction(MainActivity.class.getSimpleName(), "onPageSelected", "Profile");
-						radioGroup.clearCheck();
-						break;
-				}
-			}
-		});
-
 		final RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -114,6 +91,32 @@ public class MainActivity extends BaseActivity {
 			}
 		};
 		radioGroup.setOnCheckedChangeListener(listener);
+		viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				switch (position){
+					case 0:
+						sendAction(MainActivity.class.getSimpleName(), "onPageSelected", "Popular");
+						radioGroup.check(R.id.include_main_tab_popular_button);
+						break;
+					case 1:
+						sendAction(MainActivity.class.getSimpleName(), "onPageSelected", "Album");
+						radioGroup.check(R.id.include_main_tab_album_button);
+						break;
+					case 2:
+						sendAction(MainActivity.class.getSimpleName(), "onPageSelected", "Home");
+						radioGroup.check(R.id.include_main_tab_home_button);
+						break;
+					case 3:
+						sendAction(MainActivity.class.getSimpleName(), "onPageSelected", "Profile");
+						radioGroup.setOnCheckedChangeListener(null);
+						radioGroup.clearCheck();
+						radioGroup.setOnCheckedChangeListener(listener);
+						break;
+				}
+				setTitleUnEnableHome(getTitleFromPosition(position));
+			}
+		});
 
 		roundedImageView.setOnClickListener(new View.OnClickListener() {
 			@Override

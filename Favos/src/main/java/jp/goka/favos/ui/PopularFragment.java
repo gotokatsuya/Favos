@@ -50,7 +50,7 @@ public class PopularFragment extends BaseFragment implements SwipeRefreshLayout.
         super.onCreate(savedInstanceState);
 		sendScreenName(PopularFragment.class.getSimpleName());
 		setHasOptionsMenu(true);
-		setTitleUnEnableHome("Popular");
+		//setTitleUnEnableHome("Popular");
 		mediaArrayAdapter = new MediaAdapter(getFragmentActivity(), new AdapterListener.OnLoadListener() {
 			@Override
 			public void load() {}

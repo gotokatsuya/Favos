@@ -34,7 +34,7 @@ public class AlbumFragment extends BaseFragment implements SwipeRefreshLayout.On
 		sendScreenName(AlbumFragment.class.getSimpleName());
 
 		setHasOptionsMenu(true);
-		setTitleUnEnableHome("Album");
+		//setTitleUnEnableHome("Album");
 		savedImageAdapter = new SavedImageAdapter(getFragmentActivity(), new ArrayList<SavedImage>(),
 		new AdapterListener.OnLoadListener() {
 			@Override

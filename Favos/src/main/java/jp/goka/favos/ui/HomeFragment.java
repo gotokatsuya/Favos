@@ -37,7 +37,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         super.onCreate(savedInstanceState);
 		sendScreenName(HomeFragment.class.getSimpleName());
 		setHasOptionsMenu(true);
-		setTitleUnEnableHome("Home");
+		//setTitleUnEnableHome("Home");
 		mediaArrayAdapter = new MediaAdapter(getFragmentActivity(), new AdapterListener.OnLoadListener() {
 			@Override
 			public void load() {
