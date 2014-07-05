@@ -7,8 +7,8 @@
     <jp.goka.favos.view.SquaredImageView
             android:layout_centerInParent="true"
             android:id="@+id/item_grid_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
             android:scaleType="centerCrop"
             />
 </RelativeLayout>

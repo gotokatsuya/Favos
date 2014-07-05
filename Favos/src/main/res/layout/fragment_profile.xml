@@ -180,7 +180,37 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_card">
 
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="MyRecent"
+                        android:textSize="16sp"
+                        android:gravity="center|left"
+                        />
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@android:color/black"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="4dp"
+                        />
+
+                <jp.goka.favos.view.HorizontalListView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_self_recent_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        app:dividerWidth="4dp"
+                        />
+            </LinearLayout>
 
             <LinearLayout
                     android:layout_marginTop="20dp"
@@ -210,7 +240,7 @@
                         xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/profile_self_liked_list"
                         android:layout_width="match_parent"
-                        android:layout_height="120dp"
+                        android:layout_height="110dp"
                         app:dividerWidth="4dp"
                         />
             </LinearLayout>

@@ -2,6 +2,8 @@ package jp.goka.favos.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.RadioGroup;
 import com.android.volley.VolleyError;
@@ -9,7 +11,7 @@ import com.android.volley.toolbox.ImageLoader;
 import jp.goka.favos.R;
 import jp.goka.favos.model.Self;
 import jp.goka.favos.request.volley.VolleyManager;
-import jp.goka.favos.util.MediaUtils;
+import jp.goka.favos.view.ParentViewPager;
 import jp.goka.favos.view.RoundedImageView;
 
 /**
@@ -38,18 +40,80 @@ public class MainActivity extends BaseActivity {
 		}
 
 		final RadioGroup radioGroup = (RadioGroup) findViewById(R.id.include_main_tab_radio_group);
+		radioGroup.check(R.id.include_main_tab_popular_button);
+
+		final ParentViewPager viewPager = (ParentViewPager)findViewById(R.id.main_viewpager);
+		viewPager.setOffscreenPageLimit(4);
+		FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+			@Override
+			public Fragment getItem(int position) {
+				Fragment fragment = null;
+				switch (position) {
+					case 0:
+						fragment = new PopularFragment();
+						break;
+					case 1:
+						fragment = new AlbumFragment();
+						break;
+					case 2:
+						fragment = new HomeFragment();
+						break;
+					case 3:
+						fragment = new ProfileFragment();
+						break;
+				}
+				return fragment;
+			}
+
+			@Override
+			public int getCount() {
+				return 4;
+			}
+		};
+
+		viewPager.setAdapter(fragmentPagerAdapter);
+		viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				setTitleUnEnableHome(getTitleFromPosition(position));
+				switch (position){
+					case 0:
+						sendAction(MainActivity.class.getSimpleName(), "onPageSelected", "Popular");
+						radioGroup.check(R.id.include_main_tab_popular_button);
+						break;
+					case 1:
+						sendAction(MainActivity.class.getSimpleName(), "onPageSelected", "Album");
+						radioGroup.check(R.id.include_main_tab_album_button);
+						break;
+					case 2:
+						sendAction(MainActivity.class.getSimpleName(), "onPageSelected", "Home");
+						radioGroup.check(R.id.include_main_tab_home_button);
+						break;
+					case 3:
+						sendAction(MainActivity.class.getSimpleName(), "onPageSelected", "Profile");
+						radioGroup.clearCheck();
+						break;
+				}
+			}
+		});
+
 		final RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				setCurrentTab(checkedId);
+				switch (checkedId){
+					case R.id.include_main_tab_popular_button:
+						viewPager.setCurrentItem(0);
+						break;
+					case R.id.include_main_tab_album_button:
+						viewPager.setCurrentItem(1);
+						break;
+					case R.id.include_main_tab_home_button:
+						viewPager.setCurrentItem(2);
+						break;
+				}
 			}
 		};
 		radioGroup.setOnCheckedChangeListener(listener);
-
-		if (savedInstanceState == null) {
-			radioGroup.check(R.id.include_main_tab_popular_button);
-			setCurrentTab(R.id.include_main_tab_popular_button);
-		}
 
 		roundedImageView.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -57,40 +121,23 @@ public class MainActivity extends BaseActivity {
 				radioGroup.setOnCheckedChangeListener(null);
 				radioGroup.clearCheck();
 				radioGroup.setOnCheckedChangeListener(listener);
-				setCurrentTab(R.id.include_main_tab_profile_image);
+				viewPager.setCurrentItem(3);
 			}
 		});
 	}
 
-	private void setCurrentTab(int checkedId){
-		Fragment fragment = null;
-		switch (checkedId){
-			case R.id.include_main_tab_popular_button:
-				sendAction(MainActivity.class.getSimpleName(), "onClick", "Popular");
-				fragment = new PopularFragment();
-				break;
-			case R.id.include_main_tab_album_button:
-				sendAction(MainActivity.class.getSimpleName(), "onClick", "Album");
-				if(MediaUtils.existSavedImage(getApplicationContext())){
-					fragment = new AlbumFragment();
-				}else {
-					fragment = new EmptyAlbumFragment();
-				}
-				break;
-			case R.id.include_main_tab_home_button:
-				sendAction(MainActivity.class.getSimpleName(), "onClick", "Home");
-				fragment = new HomeFragment();
-				break;
-			case R.id.include_main_tab_profile_image:
-				sendAction(MainActivity.class.getSimpleName(), "onClick", "Profile");
-				fragment = new ProfileFragment();
-				break;
+	private String getTitleFromPosition(int position){
+		switch (position){
+			case 0:
+				return "Popular";
+			case 1:
+				return "Album";
+			case 2:
+				return "Home";
+			case 3:
+				return "Profile";
 		}
-
-		getSupportFragmentManager()
-				.beginTransaction()
-				.replace(R.id.main_container, fragment)
-				.commit();
+		return "";
 	}
 
 	@Override

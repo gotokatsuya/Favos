@@ -13,15 +13,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import jp.goka.favos.R;
-import jp.goka.favos.adapter.MediaAdapter;
 import jp.goka.favos.adapter.MediaImageAdapter;
 import jp.goka.favos.helper.ImageHelper;
 import jp.goka.favos.helper.SharedPreferencesHelper;
 import jp.goka.favos.helper.TextViewHelper;
-import jp.goka.favos.helper.ToastHelper;
 import jp.goka.favos.listener.AdapterListener;
 import jp.goka.favos.model.*;
-import jp.goka.favos.request.MediaRequest;
 import jp.goka.favos.request.UserRequest;
 import jp.goka.favos.request.volley.VolleyManager;
 import jp.goka.favos.view.HorizontalListView;
@@ -42,7 +39,8 @@ public class ProfileFragment extends BaseFragment implements SwipeRefreshLayout.
 	private TextView selfPosts;
 	private TextView selfFollowers;
 	private TextView selfFollowing;
-	private MediaImageAdapter mediaAdapter;
+	private MediaImageAdapter mediaMyLikedAdapter;
+	private MediaImageAdapter mediaMyRecentAdapter;
 
 
 	@Override
@@ -51,7 +49,13 @@ public class ProfileFragment extends BaseFragment implements SwipeRefreshLayout.
 		sendScreenName(ProfileFragment.class.getSimpleName());
 		setHasOptionsMenu(true);
 		setTitleUnEnableHome("Profile");
-		mediaAdapter = new MediaImageAdapter(getFragmentActivity(), new AdapterListener.OnLoadListener() {
+		mediaMyLikedAdapter = new MediaImageAdapter(getFragmentActivity(), new AdapterListener.OnLoadListener() {
+			@Override
+			public void load() {
+
+			}
+		});
+		mediaMyRecentAdapter = new MediaImageAdapter(getFragmentActivity(), new AdapterListener.OnLoadListener() {
 			@Override
 			public void load() {
 
@@ -78,29 +82,61 @@ public class ProfileFragment extends BaseFragment implements SwipeRefreshLayout.
 		selfPosts = getTv(view, R.id.profile_self_posts);
 		selfFollowers = getTv(view, R.id.profile_self_followers);
 		selfFollowing = getTv(view, R.id.profile_self_following);
-		HorizontalListView listView = (HorizontalListView)view.findViewById(R.id.profile_self_liked_list);
-		listView.setAdapter(mediaAdapter);
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		HorizontalListView recentListView = (HorizontalListView)view.findViewById(R.id.profile_self_recent_list);
+		recentListView.setAdapter(mediaMyRecentAdapter);
+		recentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(getFragmentActivity(), DetailMediaImageActivity.class);
 				intent.putExtra(DetailMediaImageActivity.KEY_POSITION, position);
-				intent.putStringArrayListExtra(DetailMediaImageActivity.KEY_URL, mediaAdapter.getUrls());
+				intent.putStringArrayListExtra(DetailMediaImageActivity.KEY_URL, mediaMyRecentAdapter.getUrls());
 				startActivity(intent);
 			}
 		});
-		listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+		recentListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-				Media media = mediaAdapter.getItem(position);
+				Media media = mediaMyRecentAdapter.getItem(position);
 				VolleyManager.getInstance().getImageLoader().get(media.getImages().getStandardResolution().getUrl(), new ImageLoader.ImageListener() {
 					@Override
 					public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
 						Bitmap bitmap = response.getBitmap();
-						if(bitmap != null){
+						if (bitmap != null) {
 							ImageHelper.saveImage(getFragmentActivity(), bitmap);
 						}
 					}
+					@Override
+					public void onErrorResponse(VolleyError error) {
+					}
+				});
+				return true;
+			}
+		});
+
+		HorizontalListView likedListView = (HorizontalListView)view.findViewById(R.id.profile_self_liked_list);
+		likedListView.setAdapter(mediaMyLikedAdapter);
+		likedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent intent = new Intent(getFragmentActivity(), DetailMediaImageActivity.class);
+				intent.putExtra(DetailMediaImageActivity.KEY_POSITION, position);
+				intent.putStringArrayListExtra(DetailMediaImageActivity.KEY_URL, mediaMyLikedAdapter.getUrls());
+				startActivity(intent);
+			}
+		});
+		likedListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+				Media media = mediaMyLikedAdapter.getItem(position);
+				VolleyManager.getInstance().getImageLoader().get(media.getImages().getStandardResolution().getUrl(), new ImageLoader.ImageListener() {
+					@Override
+					public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+						Bitmap bitmap = response.getBitmap();
+						if (bitmap != null) {
+							ImageHelper.saveImage(getFragmentActivity(), bitmap);
+						}
+					}
+
 					@Override
 					public void onErrorResponse(VolleyError error) {
 					}
@@ -136,6 +172,7 @@ public class ProfileFragment extends BaseFragment implements SwipeRefreshLayout.
 		refreshView(Self.find());
 		fetchSelf();
 		fetchMyLiked();
+		fetchMyRecent();
 	}
 
 	@Override
@@ -148,7 +185,9 @@ public class ProfileFragment extends BaseFragment implements SwipeRefreshLayout.
 	public void onRefresh() {
 		fetchSelf();
 		fetchMyLiked();
+		fetchMyRecent();
 	}
+
 
 
 	private void fetchSelf(){
@@ -168,15 +207,16 @@ public class ProfileFragment extends BaseFragment implements SwipeRefreshLayout.
 	}
 
 
+
 	private void fetchMyLiked(){
 		swipeRefreshLayout.setRefreshing(true);
 		UserRequest.selfLiked(new Response.Listener<List<Media>>() {
 			@Override
 			public void onResponse(List<Media> medias) {
-				if (!mediaAdapter.isEmpty()) {
-					mediaAdapter.clear();
+				if (!mediaMyLikedAdapter.isEmpty()) {
+					mediaMyLikedAdapter.clear();
 				}
-				mediaAdapter.addAll(medias);
+				mediaMyLikedAdapter.addAll(medias);
 				swipeRefreshLayout.setRefreshing(false);
 			}
 		}, new Response.Listener<InstagramError>() {
@@ -186,6 +226,33 @@ public class ProfileFragment extends BaseFragment implements SwipeRefreshLayout.
 			}
 		});
 	}
+
+
+
+	private void fetchMyRecent(){
+		swipeRefreshLayout.setRefreshing(true);
+		UserRequest.selfRecent(null, new Response.Listener<List<Media>>() {
+			@Override
+			public void onResponse(List<Media> medias) {
+				if (!mediaMyRecentAdapter.isEmpty()) {
+					mediaMyRecentAdapter.clear();
+				}
+				mediaMyRecentAdapter.addAll(medias);
+				swipeRefreshLayout.setRefreshing(false);
+			}
+		}, new Response.Listener<Pagination>() {
+			@Override
+			public void onResponse(Pagination response) {
+
+			}
+		}, new Response.Listener<InstagramError>() {
+			@Override
+			public void onResponse(InstagramError response) {
+				swipeRefreshLayout.setRefreshing(false);
+			}
+		});
+	}
+
 
 
 	private void refreshView(Self self){

@@ -3,6 +3,7 @@ package jp.goka.favos.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.*;
 import android.widget.AdapterView;
@@ -24,6 +25,7 @@ public class AlbumFragment extends BaseFragment implements SwipeRefreshLayout.On
 
 	private SavedImageAdapter savedImageAdapter;
 	private SwipeRefreshLayout swipeRefreshLayout;
+	private SwipeRefreshLayout emptySwipeRefreshLayout;
 	private GridView gridView;
 
     @Override
@@ -54,6 +56,12 @@ public class AlbumFragment extends BaseFragment implements SwipeRefreshLayout.On
 		swipeRefreshLayout = getSrl(view, R.id.swipe_refresh_layout);
 		swipeRefreshLayout.setOnRefreshListener(this);
 		swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
+
+		emptySwipeRefreshLayout = getSrl(view, R.id.empty_swipe_refresh_layout);
+		emptySwipeRefreshLayout.setOnRefreshListener(this);
+		emptySwipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
+
+
 		gridView = (GridView)view.findViewById(R.id.gridView);
 		gridView.setAdapter(savedImageAdapter);
 		gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,12 +73,26 @@ public class AlbumFragment extends BaseFragment implements SwipeRefreshLayout.On
 				startActivityForResult(intent, REQUEST_DETAIL);
 			}
 		});
+
+		toggle();
+
 		fetchSavedImage();
 	}
 
 
-	private void fetchSavedImage(){
+	private void toggle(){
+		if(MediaUtils.existSavedImage(getFragmentActivity())){
+			swipeRefreshLayout.setVisibility(View.VISIBLE);
+			emptySwipeRefreshLayout.setVisibility(View.GONE);
+		}else {
+			swipeRefreshLayout.setVisibility(View.GONE);
+			emptySwipeRefreshLayout.setVisibility(View.VISIBLE);
+		}
+	}
+
+	public void fetchSavedImage(){
 		swipeRefreshLayout.setRefreshing(true);
+		emptySwipeRefreshLayout.setRefreshing(true);
 		ThreadHelper.runInBackground(new Runnable() {
 			@Override
 			public void run() {
@@ -78,10 +100,14 @@ public class AlbumFragment extends BaseFragment implements SwipeRefreshLayout.On
 				ThreadHelper.runOnUi(new Runnable() {
 					@Override
 					public void run() {
+						toggle();
+
 						if (!savedImageAdapter.isEmpty()) {
 							savedImageAdapter.clear();
 						}
 						savedImageAdapter.addAll(savedImages);
+
+						emptySwipeRefreshLayout.setRefreshing(false);
 						swipeRefreshLayout.setRefreshing(false);
 					}
 				});
@@ -94,7 +120,6 @@ public class AlbumFragment extends BaseFragment implements SwipeRefreshLayout.On
 	public void onRefresh() {
 		fetchSavedImage();
 	}
-
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

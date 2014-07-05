@@ -38,6 +38,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.EdgeEffectCompat;
 import android.util.AttributeSet;
 import android.view.*;
@@ -238,7 +239,7 @@ public class HorizontalListView extends AdapterView<ListAdapter> {
 
             while (view.getParent() instanceof View) {
                 // If the parent is a ListView or ScrollView then disallow intercepting of touch events
-                if (view.getParent() instanceof ListView || view.getParent() instanceof ScrollView) {
+                if (view.getParent() instanceof ListView || view.getParent() instanceof ScrollView || view.getParent() instanceof ViewPager) {
                     view.getParent().requestDisallowInterceptTouchEvent(disallowIntercept);
                     mIsParentVerticiallyScrollableViewDisallowingInterceptTouchEvent = disallowIntercept;
                     return;

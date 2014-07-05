@@ -69,6 +69,29 @@ public class UserRequest extends BaseRequest {
 		}, errorListener);
 	}
 
+
+	public static void selfRecent(Pagination pagination,
+								  final Response.Listener<List<Media>> successListener,
+								  final Response.Listener<Pagination> paginationListener,
+								  final Response.Listener<InstagramError> errorListener){
+
+		HashMap<String, String> params = null;
+		if(pagination != null) {
+			params = new HashMap<String, String>();
+			params.put("max_id", pagination.getNextMaxId());
+		}
+
+		String method = UserMethod.RECENT.method;
+		method = method.replace("user-id", String.valueOf(Self.find().getUser().getIdentity()));
+		getInstance().get(method, params, new Response.Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				successForMedia(response, successListener);
+				pagination(response, paginationListener);
+			}
+		}, errorListener);
+	}
+
 	public static void selfFeed(Pagination pagination,
 								final Response.Listener<List<Media>> successListener,
 								final Response.Listener<Pagination> paginationListener,
