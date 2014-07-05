@@ -95,6 +95,11 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 		fetchSelfFeed(true);
 	}
 
+	@Override
+	public void onStop(){
+		super.onStop();
+		mPagination = null;
+	}
 
 	private void fetchSelfFeed(final boolean reset){
 		if(!reset){
